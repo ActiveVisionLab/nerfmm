@@ -1,1 +1,204 @@
-My empty html.
+<!doctype html>
+<html lang="en">
+  
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="NINormal">
+    <meta name="author" content="Zirui Wang, Shangzhe Wu, Weidi xie, Min Chen, Victor Adrian Prisacariu">
+    <meta name="generator" content="Jekyll v4.1.1">
+    
+    <title>NeRF--</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      rel="stylesheet" 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
+      crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+  </head>
+
+  <body>
+</nav>
+
+<main role="main" class="container">
+
+  <div class="title">
+    <h1>NeRF--: Neural Radiance Fields Without Known Camera Parameters</h1>
+  </div>
+
+  <!-- <h1 class="bmvc_label">(BMVC 2020 Oral Presentation)</h1> -->
+
+  <div class="col text-center">
+    <p class="authors">
+      Zirui Wang, 
+      <a href="https://elliottwu.com/">Shangzhe Wu</a>,
+      <a href="https://weidixie.github.io/weidi-personal-webpage/">Weidi Xie</a>,
+      <a href="https://sites.google.com/site/drminchen/home">Min Chen</a>,
+      <a href="http://www.robots.ox.ac.uk/~victor/">Victor Adrian Prisacariu</a><br>
+      
+      <!-- <a href="http://active.vision"> Active Vision Lab</a>,
+      <a href="http://active.vision"> Visual Geometry Group</a>,
+      <a href="http://active.vision"> Oxford e-Research Centre</a><br> -->
+      University of Oxford
+    </p>
+  </div>
+
+  <div class="col text-center">
+    <a class="btn btn-secondary" href="https://arxiv.org/abs/2102.07064" role="button">Arxiv</a>
+    <a class="btn btn-secondary" href="https://github.com/ActiveVisionLab/nerfmm" role="button">Code</a>
+    <a class="btn btn-secondary" href="https://colab.research.google.com/drive/1pRljG5lYj_dgNG_sMRyH2EKbpq3OezvK?usp=sharing" role="button">CoLab Notebook</a>
+    <a class="btn btn-secondary" href="https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz" role="button">Data</a>
+  </div>
+  
+  <h2>Abstract</h2>
+  <p>
+    This paper tackles the problem of novel view synthesis (NVS) from 2D
+    images without known camera poses or intrinsics. Among various NVS
+    techniques, Neural Radiance Field (NeRF) has recently gained popularity
+    due to its remarkable synthesis quality. Existing NeRF-based approaches
+    assume that the camera parameters associated with each input image are
+    either directly accessible at training, or can be accurately estimated with
+    conventional techniques based on correspondences such as Structure-from-Motion.
+    In this work, we propose an end-to-end framework, termed <b><i>NeRF−−</i></b>,
+    for training NeRF models given only RGB images, without pre-computed
+    camera parameters. Specifically, we show that the camera parameters, 
+    including both intrinsics and extrinsics, can be automatically discovered 
+    via joint optimisation during the training of the NeRF model. 
+    On the standard LLFF benchmark, our model achieves novel view synthesis 
+    results on par with the baseline trained with COLMAP pre-computed 
+    camera parameters. We also conduct extensive analyses to understand
+    the model behaviour under different camera trajectories, and show that
+    in scenarios where COLMAP fails, our model still produces robust results.
+  </p>
+
+
+  <!-- <div class="embed-responsive embed-responsive-16by9">
+  <iframe src="https://www.youtube.com/embed/gxBeR2LBB0k"  
+  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  </iframe>
+  </div> -->
+
+  <h2>Visualisation of Joint Optimisation</h2>
+  <p>
+    We show the visualisation of our joint optimisation below. 
+    At the beginning of training, apart from initialising a NeRF model as usual, 
+    we initialise all camera poses to be 4x4 identity matrices and 
+    a set of focal lengths that are shared by all input images 
+    to be the resolution of input images.
+  </p>
+
+  <video class='center_video' controls autoplay muted loop>
+    <source src="assets/opt_hist.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+  </video>
+
+  <h2>Results</h2>
+  <p>
+    We show novel view rendering results on the 
+    <a href="https://www.matthewtancik.com/nerf">LLFF-NeRF dataset</a>.
+    Our method offers comparable results to COLMAP-enabled NeRF, 
+    while requiring RGB images as the only input. From left to right: COLMAP-enabled NeRF results, our results, 
+    and comparisons between our camera pose estimations and COLMAP estimations. 
+    The trajectories are aligned using
+    <a href="https://github.com/uzh-rpg/rpg_trajectory_evaluation">this ATE toolbox</a>.
+  </p>
+
+  <video loop class='center_video' controls autoplay muted loop>
+    <source src="assets/comparisons/flower_colmap_learning_traj.mp4" type="video/mp4">
+  Your browser does not support the video tag. flower-COLMAP-ours-traj
+  </video>
+
+  <video loop class='center_video' controls autoplay muted loop>
+    <source src="assets/comparisons/horns_colmap_learning_traj.mp4" type="video/mp4">
+  Your browser does not support the video tag. horns-COLMAP-ours-traj
+  </video>
+
+  <video loop class='center_video' controls autoplay muted loop>
+    <source src="assets/comparisons/leaves_colmap_learning_traj.mp4" type="video/mp4">
+  Your browser does not support the video tag. leaves-COLMAP-ours-traj
+  </video>
+
+<center>
+  <p>
+  <b>Left</b>: COLMAP-enabled NeRF.
+  <b>Middle</b>: Ours.
+  <b>Right</b>: Camera pose comparison.
+  </p>
+</center>
+
+  <!-- <p>Our model outperforms PCA by a large margin and most importantly, the performance of
+    our method does not degrade as the number of neighbours increases.</p>
+  <div class="col text-center">
+    <figure class="figure">
+      <img src="imgs/ours_vs_others.png" class="figure-img img-fluid rounded" alt="performance comparison" width="1000">
+    </figure>
+  </div>
+
+  <h2>Attention Weight Visualisation</h2>
+  <p>From the attention map over 5 and 10 neighbours, (a) and (b), we can see that the network
+    pays more attention to neighbours that are close to the patch centre and ignores points farther
+    than 8th neighbours. This agrees with the PCA performance in the figure above. From the attention
+    map over 25 and 50 neighbours, (c) and (d), we observe that the network pays extra attention
+    to points at the right-end in a row. These are points far from the patch centre.</p>
+  
+  <div class="col text-center">
+    <figure class="figure">
+      <img src="imgs/combined100.png" class="figure-img img-fluid rounded" alt="attention weight vis" width="500">
+      <figcaption class="figure-caption text-center">
+        Each row in the attention map is a local patch that contains 5, 10, 25, 50 neighbours, 
+        from left to right. The x-axis denotes the indices of closest neighbours within a patch,
+        i.e., the point that is the closest to the patch centre is represented by the 1st pixel in a row.
+        attention weights are colour-coded by pixel intensity.
+      </figcaption>
+    </figure>
+  </div> -->
+
+  <!-- <p>To illustrate
+    this better, we show the attention weights predicted by our network in 3D. These
+    attention weights visualisations suggest that the network learns to identify geometric properties around the current point using points from larger scales, by inspecting, for example,
+    whether the patch contains a sharp edge or a corner. Therefore, our network maintains a relatively stable performance despite different numbers of neighbours by focusing on relevant
+    points.</p>
+
+  <div class="col text-center">
+    <figure class="figure">
+      <img src="imgs/attn_two_patches_3d.gif" class="figure-img img-fluid rounded" alt="attention weight vis 3d">
+      <figcaption class="figure-caption text-center">
+        In addtion to focusing on points close to the patch centre, our network pays extra attention to patch boundaries to identify patch geometry properties.</figcaption>
+    </figure>
+  </div> -->
+
+  <h2>Acknowledgement</h2>
+  <p>
+    <a href="https://elliottwu.com/">Shangzhe Wu</a> is supported by Facebook Research.
+    <a href="https://weidixie.github.io/weidi-personal-webpage/">Weidi Xie</a> is supported by Visual AI (EP/T028572/1).
+    The authors would like to thank
+    <a href="https://scholar.google.co.uk/citations?user=kQB_dOoAAAAJ&hl=en">Tim Yuqing Tang</a>
+    for insightful discussions and proofreading.
+  </p>
+
+  <h2>BibTeX</h2>
+  <pre>
+    @article{wang2021nerfmm,
+      title={Ne{RF}$--$: Neural Radiance Fields Without Known Camera Parameters},
+      author={Zirui Wang and Shangzhe Wu and Weidi Xie and Min Chen and Victor Adrian Prisacariu},
+      journal={arXiv preprint arXiv:2102.07064},
+      year={2021}
+    }
+  </pre>
+
+  <!-- <h2>Reference</h2>
+  <ol>
+    <li>Paul Guerrero, Yanir Kleiman, Maks Ovsjanikov, and Niloy J. Mitra. PCPNet: Learning local shape properties from raw point clouds. Computer Graphics Forum, 2018.</li>
+    <li>Yizhak Ben-Shabat, Michael Lindenbaum, and Anath Fischer. Nesti-net: Normal estimation for unstructured 3d point clouds using convolutional neural networks. In CVPR, 2019.</li>
+  </ol> -->
+
+
+
+
+</main>
+</html>
