@@ -1,0 +1,21 @@
+name: nerfmm
+channels:
+  - pytorch
+  - open3d-admin
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - pytorch=1.4.0
+  - cudatoolkit=10.1
+  - torchvision
+  - tqdm
+  - imageio
+  - matplotlib
+  - pip:
+    - tensorflow  # Only for tensorboard
+    - imageio-ffmpeg
+    - lpips
+    - scikit-image
+    - open3d  # Only for 3d vis. Might require a physical monitor to install.
