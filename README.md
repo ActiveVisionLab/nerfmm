@@ -71,13 +71,13 @@ tar -xzvf path/to/the/tar.gz
 We show how to:
 1. train a `nerfmm` from scratch, i.e. initialise camera poses with identity matrices and focal lengths with image resolution:
     ```shell
-   python tasks/nerf/train.py \
+   python tasks/nerfmm/train.py \
    --base_dir='path/to/nerfmm_release/data' \
    --scene_name='LLFF/fern'
     ```
 2. train a `nerfmm` from COLMAP initialisation:
     ```shell
-    python tasks/nerf/train.py \
+    python tasks/nerfmm/train.py \
    --base_dir='path/to/nerfmm_release/data' \
    --scene_name='LLFF/fern' \
    --start_refine_pose_epoch=1000 \
