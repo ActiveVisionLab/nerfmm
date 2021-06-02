@@ -121,7 +121,7 @@ python tasks/nerfmm/eval.py \
 --scene_name='LLFF/fern' \
 --ckpt_dir='path/to/a/dir/contains/nerfmm/ckpts'
 ```
-This file can be used to evaluate a checkpoint trained with `refine_nerfmm` target. For some scenes, you might need to tweak with `--opt_eval_lr` option to get the best results. Common values for `opt_eval_lr` are 0.01 / 0.005 / 0.001 / 0.0005 / 0.0001. The default value is 0.001. Overall, it finds validation poses that can produce highest PSNR on validation set while freezing NeRF and focal lengths. We do this because the learned camera pose space is different from the COLMAP estimated camera pose space.
+This file can be used to evaluate a checkpoint trained with `nerfmm` or `refine_nerfmm` target. For some scenes, you might need to tweak with `--opt_eval_lr` option to get the best results. Common values for `opt_eval_lr` are 0.01 / 0.005 / 0.001 / 0.0005 / 0.0001. The default value is 0.001. Overall, it finds validation poses that can produce highest PSNR on validation set while freezing NeRF and focal lengths. We do this because the learned camera pose space is different from the COLMAP estimated camera pose space.
 
 ### Render novel views
 Call `spiral.py` in each target. The `spiral.py` in `nerfmm` is compatible with `refine_nerfmm` target:
