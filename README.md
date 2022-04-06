@@ -1,15 +1,33 @@
 # NeRF--: Neural Radiance Fields Without Known Camera Parameters
 
-**[Project Page](https://nerfmm.active.vision/) | [Arxiv](https://arxiv.org/abs/2102.07064) | [Colab Notebook](https://colab.research.google.com/drive/1pRljG5lYj_dgNG_sMRyH2EKbpq3OezvK?usp=sharing) | [Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz)**
+**[Project Page](https://nerfmm.active.vision/) |
+[Latest arXiv](https://arxiv.org/abs/2102.07064) |
+[Colab Notebook](https://colab.research.google.com/drive/1pRljG5lYj_dgNG_sMRyH2EKbpq3OezvK?usp=sharing) | 
+[LLFF Released Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz) |
+[BLEFF Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz)**
 
-Zirui Wang¹, 
+[Zirui Wang¹](https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en), 
 [Shangzhe Wu²](http://elliottwu.com), 
 [Weidi Xie²](https://weidixie.github.io/weidi-personal-webpage/), 
 [Min Chen³](https://sites.google.com/site/drminchen/home), 
 [Victor Adrian Prisacariu¹](http://www.robots.ox.ac.uk/~victor/). 
 
-¹Active Vision Lab + ²Visual Geometry Group + ³e-Research Centre, University of Oxford.
+[¹Active Vision Lab (AVL)](https://www.robots.ox.ac.uk/~lav/) + 
+[²Visual Geometry Group (VGG)](https://www.robots.ox.ac.uk/~vgg/) + 
+[³e-Research Centre](https://www.oerc.ox.ac.uk/), 
+University of Oxford.
 
+
+## Update
+#### 7 Apr 2022
+- Update our [arXiv paper](https://arxiv.org/abs/2102.07064) with
+  1. A breaking point analysis for the camera parameter estimation. In short, our method can tolerate ±20 degrees of rotation variance and ±20% of translation variance.
+  2. A customised dataset, which we named [Blender Forward Facing (BLEFF)](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz). We will provide the dataloader file to load this data soon.
+
+#### 20 Apr 2021
+- Initial code release, corresponding to [arXiv paper v3](https://arxiv.org/abs/2102.07064v3).
+
+---
 ## Overview
 We provide 3 training targets in this repository, under the `tasks` directory:
 1. `tasks/nerfmm/train.py`: This is our main training script for the [NeRF-LLFF dataset](https://drive.google.com/drive/folders/128yBriW1IG_3NJ5Rp7APSTZsJqdJdfc1), which estimates camera poses, focal lenghts and a NeRF jointly and monitors the absolute trajectory error (ATE) between our estimation of camera parameters and COLMAP estimation during training. This target can also start training from a COLMAP initialisation and refine the COLMAP camera parameters.
@@ -51,7 +69,9 @@ pip install open3d
 ```
 
 ## Get Data
-We use the [NeRF-LLFF dataset](https://drive.google.com/drive/folders/128yBriW1IG_3NJ5Rp7APSTZsJqdJdfc1) with two small structural changes: 
+
+#### LLFF Dataset
+We use the [LLFF dataset](https://drive.google.com/drive/folders/128yBriW1IG_3NJ5Rp7APSTZsJqdJdfc1) with two small structural changes: 
 1. We remove their `image_4` and `image_8` folder and downsample images to any desirable resolution during data loading `dataloader/with_colmap.py`, by calling PyTorch's `interpolate` function.
 2. We explicitly generate two txt files for train/val image ids. i.e. take every 8th image as the validation set, as in the official NeRF train/val split. The only difference is that we store them as txt files while NeRF split them during data loading. The file produces these two txt files is `utils/split_dataset.py`.
 
@@ -60,10 +80,21 @@ In addition to the NeRF-LLFF dataset, we provide two demo scenes to demonstrate 
 We pack the re-structured LLFF data and our data to a tar ball (~1.8G), to get it, run:
 ```shell
 wget https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz
+tar -xzvf path/to/the/tar.gz
 ```
 
-Untar the data:
-```
+#### BLEFF Dataset
+There are mainly two reasons that motivate us to create BLEFF:
+1. We need to evaluate both the camera parameter estimation accuracy and image rendering quality at the same time.
+2. To facilitate the analysis of the robustness of our method, a dataset with progressively increasing pose perturbation levels is required.
+
+To that end, we introduce a synthetic dataset BLEFF, containing 14 path-traced scenes, with each rendered in multiple
+levels of rotation and translation perturbations. Those scenes are modified and rendered with 
+open-source blender files on [blendswap](https://www.blendswap.com/) and the license info can be found in our supplementary file.
+
+Usage of our data:
+```shell
+wget https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz
 tar -xzvf path/to/the/tar.gz
 ```
 
@@ -135,7 +166,7 @@ python spiral.py \
 ### Visualise estimated poses in 3D
 Call `vis_learned_poses.py` in each target. The `vis_learned_poses.py` in `nerfmm` is compatible with `refine_nerfmm` target:
 ```shell
-python spiral.py \
+python vis_learned_poses.py \
 --base_dir='path/to/nerfmm_release/data' \
 --scene_name='LLFF/fern' \
 --ckpt_dir='path/to/a/dir/contains/nerfmm/ckpts'
