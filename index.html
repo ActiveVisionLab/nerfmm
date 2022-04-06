@@ -35,7 +35,7 @@
 
   <div class="col text-center">
     <p class="authors">
-      Zirui Wang, 
+      <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en">Zirui Wang</a>,
       <a href="https://elliottwu.com/">Shangzhe Wu</a>,
       <a href="https://weidixie.github.io/weidi-personal-webpage/">Weidi Xie</a>,
       <a href="https://sites.google.com/site/drminchen/home">Min Chen</a>,
@@ -50,30 +50,25 @@
 
   <div class="col text-center">
     <a class="btn btn-secondary" href="https://arxiv.org/abs/2102.07064" role="button">Arxiv</a>
-    <a class="btn btn-secondary" href="https://github.com/ActiveVisionLab/nerfmm" role="button">Code</a>
     <a class="btn btn-secondary" href="https://colab.research.google.com/drive/1pRljG5lYj_dgNG_sMRyH2EKbpq3OezvK?usp=sharing" role="button">CoLab Notebook</a>
-    <a class="btn btn-secondary" href="https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz" role="button">Data</a>
+    <a class="btn btn-secondary" href="https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz" role="button">LLFF Data</a>
+    <a class="btn btn-secondary" href="https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz" role="button">BLEFF Data</a>
+    <a class="btn btn-secondary" href="https://github.com/ActiveVisionLab/nerfmm" role="button">Code</a>
   </div>
   
   <h2>Abstract</h2>
   <p>
-    This paper tackles the problem of novel view synthesis (NVS) from 2D
-    images without known camera poses or intrinsics. Among various NVS
-    techniques, Neural Radiance Field (NeRF) has recently gained popularity
-    due to its remarkable synthesis quality. Existing NeRF-based approaches
-    assume that the camera parameters associated with each input image are
-    either directly accessible at training, or can be accurately estimated with
-    conventional techniques based on correspondences such as Structure-from-Motion.
-    In this work, we propose an end-to-end framework, termed <b><i>NeRF−−</i></b>,
-    for training NeRF models given only RGB images, without pre-computed
-    camera parameters. Specifically, we show that the camera parameters, 
-    including both intrinsics and extrinsics, can be automatically discovered 
-    via joint optimisation during the training of the NeRF model. 
-    On the standard LLFF benchmark, our model achieves novel view synthesis 
-    results on par with the baseline trained with COLMAP pre-computed 
-    camera parameters. We also conduct extensive analyses to understand
-    the model behaviour under different camera trajectories, and show that
-    in scenarios where COLMAP fails, our model still produces robust results.
+    Considering the problem of novel view synthesis (NVS) from only a set of 2D images,
+    we simplify the training process of Neural Radiance Field (NeRF) on forward-facing scenes by
+    removing the requirement of known or pre-computed camera parameters, including both intrinsics and 6DoF poses.
+    To this end, we propose <b><i>NeRF−−</i></b>, with three contributions:
+    First, we show that the camera parameters can be jointly optimised as learnable parameters with NeRF training,
+    through a photometric reconstruction;
+    Second, to benchmark the camera parameter estimation and the quality of novel view renderings,
+    we introduce a new dataset of path-traced synthetic scenes, termed as Blender Forward-Facing Dataset (BLEFF);
+    Third, we conduct extensive analyses to understand the training behaviours under various camera motions,
+    and show that in most scenarios, the joint optimisation pipeline can recover accurate camera parameters
+    and achieve comparable novel view synthesis quality as those trained with COLMAP pre-computed camera parameters.
   </p>
 
 
@@ -123,13 +118,29 @@
   Your browser does not support the video tag. leaves-COLMAP-ours-traj
   </video>
 
-<center>
+  <center>
+    <p>
+    <b>Left</b>: COLMAP-enabled NeRF.
+    <b>Middle</b>: Ours.
+    <b>Right</b>: Camera pose comparison.
+    </p>
+  </center>
+
+  <h2> Blender Forward-Facing Dataset (BLEFF) </h2>
+  <div class="col text-center">
+    <figure class="figure">
+      <embed src="assets/BLEFF_thumbnails.jpg" alt="BLEFF thumbnails" width="1000">
+    </figure>
+  </div>
   <p>
-  <b>Left</b>: COLMAP-enabled NeRF.
-  <b>Middle</b>: Ours.
-  <b>Right</b>: Camera pose comparison.
+    There are mainly two reasons that motivate us to create <a href="https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz">BLEFF</a>:
+    1) We need to evaluate both the camera parameter estimation accuracy and image rendering quality at the same time; and
+    2) To facilitate the analysis of the robustness of our method, a dataset with progressively increasing pose perturbation levels is required.
+    To that end, we introduce a synthetic dataset BLEFF, containing 14 path-traced scenes, with each rendered in multiple
+    levels of rotation and translation perturbations. Those scenes are modified and rendered with
+    open-source blender files on <a href="https://www.blendswap.com/">blendswap</a> and the license info can be found in our supplementary file.
   </p>
-</center>
+
 
   <!-- <p>Our model outperforms PCA by a large margin and most importantly, the performance of
     our method does not degrade as the number of neighbours increases.</p>
