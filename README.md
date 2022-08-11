@@ -4,7 +4,8 @@
 [Latest arXiv](https://arxiv.org/abs/2102.07064) |
 [Colab Notebook](https://colab.research.google.com/drive/1pRljG5lYj_dgNG_sMRyH2EKbpq3OezvK?usp=sharing) | 
 [LLFF Released Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_release_data.tar.gz) |
-[BLEFF Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz)**
+[BLEFF Data](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz) |
+[ckpts](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_ckpts.tar.gz)**
 
 [Zirui Wang¹](https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en), 
 [Shangzhe Wu²](http://elliottwu.com), 
@@ -19,13 +20,15 @@ University of Oxford.
 
 
 ## Update
+#### 11 Aug 2022
+Release our [checkpoints](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_ckpts.tar.gz) on LLFF dataset.
 #### 7 Apr 2022
-- Update our [arXiv paper](https://arxiv.org/abs/2102.07064) with
+Update our [arXiv paper](https://arxiv.org/abs/2102.07064) with
   1. A breaking point analysis for the camera parameter estimation. In short, our method can tolerate ±20 degrees of rotation variance and ±20% of translation variance.
   2. A customised dataset, which we named [Blender Forward Facing (BLEFF)](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/BLEFF.tar.gz). We will provide the dataloader file to load this data soon.
 
 #### 20 Apr 2021
-- Initial code release, corresponding to [arXiv paper v3](https://arxiv.org/abs/2102.07064v3).
+Initial code release, corresponding to [arXiv paper v3](https://arxiv.org/abs/2102.07064v3).
 
 ---
 ## Overview
