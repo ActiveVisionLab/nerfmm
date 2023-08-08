@@ -20,6 +20,13 @@ University of Oxford.
 
 
 ## Update
+#### 8 Aug 2023
+Some BLEFF-related info discussed in issues:
+* [#34](/../../issues/34): training config.
+* [#37](/../../issues/37): coordinate system.
+* [#38](/../../issues/38): loading script.
+* [#41](/../../issues/41): non-normalised rotation matrix issue.
+
 #### 11 Aug 2022
 Release our [checkpoints](https://www.robots.ox.ac.uk/~ryan/nerfmm2021/nerfmm_ckpts.tar.gz) on LLFF dataset.
 #### 7 Apr 2022
